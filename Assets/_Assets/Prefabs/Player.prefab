@@ -54,15 +54,18 @@ MonoBehaviour:
   speedGainedPerSecGrappling: 2
   grappleGravUp: 0.5
   grappleGravDown: 1
-  grappleXInfluence: 1
+  grappleXInfluence: 0.5
+  grappleDistChangePerSec: 5
+  maxGrappleDist: 10
   col: {fileID: 4915114257611600694}
   spriteRenderer: {fileID: 4915114257611600692}
   anim: {fileID: 6341993866425995823}
   grappleHook: {fileID: 0}
-  airControl: 0
-  accelSpeed: 150
+  airControl: 1
+  accelSpeed_Ground: 0
+  accelSpeed_Air: 0
   frictionSpeed_Ground: 100
-  frictionSpeed_Air: 0
+  frictionSpeed_Air: 2
   maxWalkSpeed: 8
   jumpPower: 13
   gravUp: 35

@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float grappleGravUp;
     [SerializeField] private float grappleGravDown;
     [SerializeField] private float grappleXInfluence;
+    [Space(5)]
+    [SerializeField] private float grappleDistChangePerSec;
+    [Space(5)]
+    [SerializeField] private float maxGrappleDist;
     private float currGrapplingSpeed;
 
     private PlayerAnimStateEnum currentAnimation;
@@ -38,7 +42,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private bool airControl;
-    [SerializeField] private float accelSpeed;
+    [SerializeField] private float accelSpeed_Ground;
+    [SerializeField] private float accelSpeed_Air;
     [SerializeField] private float frictionSpeed_Ground;
     [SerializeField] private float frictionSpeed_Air;
     [SerializeField] private float maxWalkSpeed;
@@ -93,6 +98,11 @@ public class PlayerController : MonoBehaviour
         if (isGrappling)
         {
             currGrapplingSpeed += speedGainedPerSecGrappling * Time.deltaTime;
+
+            float inputY = inputHandler.Direction.y;
+            distToHook -= inputY * grappleDistChangePerSec * Time.deltaTime;
+            distToHook = Mathf.Max(0, distToHook);
+            distToHook = Mathf.Min(maxGrappleDist, distToHook);
         }
 
         if (inputHandler.Grapple.down && (isGrappling == false))
@@ -128,7 +138,10 @@ public class PlayerController : MonoBehaviour
                 if (xSpeed > -maxWalkSpeed)
                 {
                     //Can still accelerate to the left (but do not exceed max)
-                    xSpeed = Mathf.Max(-maxWalkSpeed, xSpeed + accelSpeed * inputX * Time.deltaTime);
+                    if (grounded)
+                        xSpeed = Mathf.Max(-maxWalkSpeed, xSpeed + accelSpeed_Ground * inputX * Time.deltaTime);
+                    else
+                        xSpeed = Mathf.Max(-maxWalkSpeed, xSpeed + accelSpeed_Air * inputX * Time.deltaTime);
                 }
             }
             else
@@ -138,7 +151,10 @@ public class PlayerController : MonoBehaviour
                     if (xSpeed < maxWalkSpeed)
                     {
                         //Can still accelerate to the right (but do not exceed max)
-                        xSpeed = Mathf.Min(maxWalkSpeed, xSpeed + accelSpeed * inputX * Time.deltaTime);
+                        if (grounded)
+                            xSpeed = Mathf.Min(maxWalkSpeed, xSpeed + accelSpeed_Ground * inputX * Time.deltaTime);
+                        else
+                            xSpeed = Mathf.Min(maxWalkSpeed, xSpeed + accelSpeed_Air * inputX * Time.deltaTime);
                     }
                 }
                 else //pressing nothing
@@ -262,7 +278,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         //Play new animation
-        anim.Play(_newState.ToString());
+        //anim.Play(_newState.ToString());
 
         //Update current anim state var
         currentAnimation = _newState;

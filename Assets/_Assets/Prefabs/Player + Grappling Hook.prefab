@@ -133,10 +133,6 @@ PrefabInstance:
       propertyPath: grappleHook
       value: 
       objectReference: {fileID: 1766605101213893667}
-    - target: {fileID: 4807639186137466977, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
-      propertyPath: grappleXInfluence
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4915114257611600682, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
       propertyPath: m_Name
       value: Player
