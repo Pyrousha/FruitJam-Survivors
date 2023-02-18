@@ -36,8 +36,7 @@ public class PlayerController : MonoBehaviour
     enum PlayerAnimStateEnum
     {
         Player_Idle,
-        Player_Jump_Up,
-        Player_Jump_Down
+        Player_Right
     }
 
     [Header("Parameters")]
@@ -55,7 +54,7 @@ public class PlayerController : MonoBehaviour
     [Space(5)]
     [SerializeField] private LayerMask terrainLayer;
 
-    private float xSpeed = 0;
+    //private float xSpeed = 0;
     private bool grounded = false;
     private float lastTimePressedJump = -100.0f;
     private float lastTimeGrounded = -100.0f;
@@ -99,10 +98,29 @@ public class PlayerController : MonoBehaviour
         {
             currGrapplingSpeed += speedGainedPerSecGrappling * Time.deltaTime;
 
-            float inputY = inputHandler.Direction.y;
-            distToHook -= inputY * grappleDistChangePerSec * Time.deltaTime;
-            distToHook = Mathf.Max(0, distToHook);
-            distToHook = Mathf.Min(maxGrappleDist, distToHook);
+            if (!grounded)
+            {
+
+                float inputY = inputHandler.Direction.y;
+
+                if (inputY > 0)
+                {
+                    //Reel in
+                    distToHook = Mathf.Max(0, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
+                }
+                else
+                {
+                    if (inputY < 0)
+                    {
+                        //Reel out
+                        if (distToHook < maxGrappleDist)
+                        {
+                            distToHook = Mathf.Min(maxGrappleDist, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
+                        }
+                    }
+                }
+            }
+
         }
 
         if (inputHandler.Grapple.down && (isGrappling == false))
@@ -129,6 +147,7 @@ public class PlayerController : MonoBehaviour
         {
             //Accelerate + Friction
             float inputX = inputHandler.Direction.x;
+            float xSpeed = rb.velocity.x;
 
             if (!grounded && !airControl)
                 inputX = 0;
@@ -232,14 +251,18 @@ public class PlayerController : MonoBehaviour
         //Set animation states
         if (grounded)
         {
-            ChangeAnimationState(PlayerAnimStateEnum.Player_Idle);
+            if (Mathf.Abs(rb.velocity.x) > 0.25f)
+                ChangeAnimationState(PlayerAnimStateEnum.Player_Right);
+            else
+                ChangeAnimationState(PlayerAnimStateEnum.Player_Idle);
         }
         else
         {
-            if (rb.velocity.y >= 0)
-                ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Up);
-            else
-                ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Down);
+            ChangeAnimationState(PlayerAnimStateEnum.Player_Idle);
+            // if (rb.velocity.y >= 0)
+            //     ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Up);
+            // else
+            //     ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Down);
         }
     }
 
@@ -249,14 +272,14 @@ public class PlayerController : MonoBehaviour
 
         if (isGrappling) //start grapple
         {
-            Vector2 axis = Vector2.Perpendicular(grappleHook.transform.position - transform.position);
-            currGrapplingSpeed = Vector3.Project(rb.velocity, axis).magnitude;
+            //Vector2 axis = Vector2.Perpendicular(grappleHook.transform.position - transform.position);
+            currGrapplingSpeed = rb.velocity.magnitude;
 
             distToHook = (transform.position - grappleHook.transform.position).magnitude;
         }
         else //end grapple
         {
-            xSpeed = rb.velocity.x;
+
         }
     }
 
@@ -278,7 +301,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         //Play new animation
-        //anim.Play(_newState.ToString());
+        anim.Play(_newState.ToString());
 
         //Update current anim state var
         currentAnimation = _newState;
