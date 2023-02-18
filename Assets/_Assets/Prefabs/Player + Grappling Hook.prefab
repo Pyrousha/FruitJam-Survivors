@@ -96,14 +96,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2164518126481652116}
-    - target: {fileID: 376373015366889310, guid: 7d72fd2b94edea441a4b1e35a84994da, type: 3}
-      propertyPath: moveSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 376373015366889310, guid: 7d72fd2b94edea441a4b1e35a84994da, type: 3}
-      propertyPath: fireDuration
-      value: 0.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d72fd2b94edea441a4b1e35a84994da, type: 3}
 --- !u!4 &1766605101213893665 stripped
@@ -143,11 +135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915114257611600693, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8454533
+      value: -3.17
       objectReference: {fileID: 0}
     - target: {fileID: 4915114257611600693, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.30095896
+      value: 3.82
       objectReference: {fileID: 0}
     - target: {fileID: 4915114257611600693, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -179,6 +171,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915114257611600693, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799320014152712896, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799320014152712896, guid: aa1ee4be41bbafc4dbe2a6f9bcd79cd1, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

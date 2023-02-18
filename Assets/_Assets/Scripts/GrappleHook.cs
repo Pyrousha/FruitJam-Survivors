@@ -37,11 +37,10 @@ public class GrappleHook : MonoBehaviour
         if (grappleState != GrappleState_Enum.Inactive)
             return;
 
-        UpdateLineRend();
-
         grappleState = GrappleState_Enum.Firing;
 
         transform.position = player.transform.position;
+        UpdateLineRend();
 
         col.enabled = true;
 

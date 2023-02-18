@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 100
-  fireDuration: 0.1
+  moveSpeed: 50
+  fireDuration: 0.2
   visuals: {fileID: 376373014873505815}
   lineRend: {fileID: 376373014873505810}

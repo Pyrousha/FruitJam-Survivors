@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;
     private InputHandler inputHandler;
     private Rigidbody2D rb;
+    public Rigidbody2D RB => rb;
 
     [Header("External References")]
     [SerializeField] private GrappleHook grappleHook;
