@@ -282,13 +282,13 @@ public class PlayerController : MonoBehaviour
                 }
 
                 if (angle + 90 <= 0) {
-                    if (rb.velocity.x < -epsilon)
+                    if (rb.velocity.x < 0)
                     {
                         spriteRenderer.flipX = false;
                     }
                     else
                     {
-                        if (rb.velocity.x >= epsilon)
+                        if (rb.velocity.x > 0)
                         {
                             spriteRenderer.flipX = true;
                         }
