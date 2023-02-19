@@ -71,9 +71,6 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (inputHandler.Grapple.up)
-            StopFill();
-
         if (filling)
         {
             float amountToFill = Mathf.Min(xpAddedPerSec * Time.unscaledDeltaTime, juice, selectedWeapon.XpToNextLevel);

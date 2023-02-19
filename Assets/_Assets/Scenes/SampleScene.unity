@@ -14756,6 +14756,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4869082299267900889, guid: 5dd1300b133e26e44a567d0bc99aab3f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5691013494859460397, guid: 5dd1300b133e26e44a567d0bc99aab3f, type: 3}
       propertyPath: m_Size.x
       value: 0.75
@@ -14770,7 +14774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6679334791274842506, guid: 5dd1300b133e26e44a567d0bc99aab3f, type: 3}
       propertyPath: orthographic size
-      value: 17
+      value: 16.875
       objectReference: {fileID: 0}
     - target: {fileID: 7722421333223397494, guid: 5dd1300b133e26e44a567d0bc99aab3f, type: 3}
       propertyPath: m_AnchoredPosition.y
