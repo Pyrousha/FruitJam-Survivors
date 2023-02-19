@@ -42,7 +42,9 @@ public class PlayerController : MonoBehaviour
         Player_Idle,
         Player_Right,
         Player_Jump,
-        Player_Fall
+        Player_Fall,
+        Player_Grapple_Up,
+        Player_Grapple_Down
     }
 
     [Header("Parameters")]
@@ -258,7 +260,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        spriteRenderer.transform.rotation = Quaternion.identity;
         //Set animation states
         if (grounded)
         {
@@ -269,9 +271,35 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (currentAnimation != PlayerAnimStateEnum.Player_Jump)
+            if (isGrappling) {
+                Vector2 delta = grappleHook.transform.position - transform.position;
+                float angle = Mathf.Rad2Deg * Mathf.Atan2(delta.y, delta.x) - 90;
+                spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, angle);
+                if (rb.velocity.y > 0)
+                    ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Up);
+                else {
+                    ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Down);
+                }
+
+                if (angle + 90 <= 0) {
+                    if (rb.velocity.x < -epsilon)
+                    {
+                        spriteRenderer.flipX = false;
+                    }
+                    else
+                    {
+                        if (rb.velocity.x >= epsilon)
+                        {
+                            spriteRenderer.flipX = true;
+                        }
+                    }
+                }
+                
+            } else if (currentAnimation != PlayerAnimStateEnum.Player_Jump)
                 ChangeAnimationState(PlayerAnimStateEnum.Player_Fall);
         }
+
+        
     }
 
     public void SetIsGrappling(bool _isGrappling)
