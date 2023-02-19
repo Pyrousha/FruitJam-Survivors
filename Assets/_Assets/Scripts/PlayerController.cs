@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float grappleDistChangePerSec;
     [Space(5)]
     [SerializeField] private float maxGrappleDist;
-    private float currGrapplingSpeed;
 
     private PlayerAnimStateEnum currentAnimation;
 
@@ -108,31 +107,24 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrappling)
         {
-            currGrapplingSpeed += speedGainedPerSecGrappling * Time.deltaTime;
+            float inputY = inputHandler.Direction.y;
 
-            if (!grounded)
+            if (inputY > 0)
             {
-
-                float inputY = inputHandler.Direction.y;
-
-                if (inputY > 0)
+                //Reel in
+                distToHook = Mathf.Max(0, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
+            }
+            else
+            {
+                if (inputY < 0)
                 {
-                    //Reel in
-                    distToHook = Mathf.Max(0, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
-                }
-                else
-                {
-                    if (inputY < 0)
+                    //Reel out
+                    if (distToHook < maxGrappleDist)
                     {
-                        //Reel out
-                        if (distToHook < maxGrappleDist)
-                        {
-                            distToHook = Mathf.Min(maxGrappleDist, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
-                        }
+                        distToHook = Mathf.Min(maxGrappleDist, distToHook - inputY * grappleDistChangePerSec * Time.deltaTime);
                     }
                 }
             }
-
         }
 
         if (inputHandler.Grapple.down && (isGrappling == false))
@@ -284,9 +276,6 @@ public class PlayerController : MonoBehaviour
 
         if (isGrappling) //start grapple
         {
-            //Vector2 axis = Vector2.Perpendicular(grappleHook.transform.position - transform.position);
-            currGrapplingSpeed = rb.velocity.magnitude;
-
             distToHook = (transform.position - grappleHook.transform.position).magnitude;
         }
         else //end grapple
