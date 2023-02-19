@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
     enum PlayerAnimStateEnum
     {
         Player_Idle,
-        Player_Right
+        Player_Right,
+        Player_Jump,
+        Player_Fall
     }
 
     [Header("Parameters")]
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravUp;
     [SerializeField] private float gravDown;
     [SerializeField] private float spaceReleaseGravMult;
+    [SerializeField] private float terminalVelocityMagnitude;
     [Space(5)]
     [SerializeField] private LayerMask terrainLayer;
 
@@ -230,10 +233,13 @@ public class PlayerController : MonoBehaviour
         //Gravity
         if (isGrappling == false)
         {
-            if (inputHandler.Jump.holding && rb.velocity.y > 0)
-                rb.velocity -= new Vector2(0, gravUp * Time.deltaTime);
-            else
-                rb.velocity -= new Vector2(0, gravDown * Time.deltaTime);
+            if (rb.velocity.y > -terminalVelocityMagnitude)
+            {
+                if (inputHandler.Jump.holding && rb.velocity.y > 0)
+                    rb.velocity -= new Vector2(0, gravUp * Time.deltaTime);
+                else
+                    rb.velocity -= new Vector2(0, gravDown * Time.deltaTime);
+            }
         }
 
         //Space release gravity
@@ -267,11 +273,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            ChangeAnimationState(PlayerAnimStateEnum.Player_Idle);
-            // if (rb.velocity.y >= 0)
-            //     ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Up);
-            // else
-            //     ChangeAnimationState(PlayerAnimStateEnum.Player_Jump_Down);
+            if (currentAnimation != PlayerAnimStateEnum.Player_Jump)
+                ChangeAnimationState(PlayerAnimStateEnum.Player_Fall);
         }
     }
 
@@ -299,6 +302,8 @@ public class PlayerController : MonoBehaviour
             return;
 
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+
+        ChangeAnimationState(PlayerAnimStateEnum.Player_Jump);
 
         grounded = false;
     }
