@@ -249,8 +249,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 0}
   maxHp: 5
-  numXpSpawned: 0
-  xpPickup: {fileID: 0}
+  numXpSpawned: 3
+  xpPickup: {fileID: 477882601653735968, guid: f8f81b9b51b245d478b41fe5e85596bf, type: 3}
 --- !u!61 &7846309100647595313
 BoxCollider2D:
   m_ObjectHideFlags: 0

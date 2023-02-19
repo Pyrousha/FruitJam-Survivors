@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+
     private Rigidbody2D rb;
 
     private float destroyTime = -1;
@@ -35,9 +36,7 @@ public class Projectile : MonoBehaviour
     //Destroy projectile if it hits terrain
     void OnCollisionEnter2D(Collision2D _col)
     {
-        if (terrainLayer == (terrainLayer | (1 << _col.gameObject.layer)))
-            return;
-
-        Destroy(gameObject);
+        if (Utils.IsInLayermask(_col.gameObject.layer, terrainLayer))
+            Destroy(gameObject);
     }
 }

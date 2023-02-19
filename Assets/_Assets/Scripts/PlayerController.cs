@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrappling;
     private float distToHook;
 
+    private Vector2 dirFacing;
+    public Vector2 DirFacing => dirFacing;
+
     private Vector2 dir;
     [SerializeField] private float startingGrapplingSpeed;
     [SerializeField] private float speedGainedPerSecGrappling;
@@ -71,6 +74,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb.velocity.magnitude > 0.1f)
+        {
+            dirFacing = rb.velocity.normalized;
+        }
+
         if (isGrappling)
         {
             //Make player the same distance from the hook while grappling

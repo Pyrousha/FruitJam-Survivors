@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Entity
   - Terrain
-  - Weapon Pickup
+  - WeaponPickup
   - Player-Hitbox
   - Player-Hurtbox
   - 
@@ -22,8 +22,8 @@ TagManager:
   - 
   - Grapplehook
   - 
-  - 
-  - 
+  - TerrainOnly
+  - HeroOnlyTrigger
   - 
   - 
   - 
