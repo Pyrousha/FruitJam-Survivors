@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     private float destroyTime = -1;
 
     [SerializeField] private LayerMask terrainLayer;
+    [SerializeField] private Hitbox hitbox;
 
     void Awake()
     {
@@ -22,8 +23,10 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetParameters(Vector2 _dir, float _moveSpeed, float _duration)
+    public void SetParameters(Vector2 _dir, float _moveSpeed, float _duration, float _dmg)
     {
+        hitbox.SetDamage(_dmg);
+
         Vector3 rot = transform.eulerAngles;
         rot.z = Mathf.Atan2(_dir.y, _dir.x);
         transform.eulerAngles = rot * Mathf.Rad2Deg;

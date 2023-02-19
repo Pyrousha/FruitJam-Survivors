@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BoxCollider2D col;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator anim;
+    private DistanceJoint2D distanceJoint;
     private InputHandler inputHandler;
     private Rigidbody2D rb;
     public Rigidbody2D RB => rb;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         inputHandler = GetComponent<InputHandler>();
         rb = GetComponent<Rigidbody2D>();
+        distanceJoint = GetComponent<DistanceJoint2D>();
     }
 
     void FixedUpdate()
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
         if (isGrappling)
         {
             //Make player the same distance from the hook while grappling
-            transform.position = grappleHook.transform.position + (transform.position - grappleHook.transform.position).normalized * distToHook;
+            //transform.position = grappleHook.transform.position + (transform.position - grappleHook.transform.position).normalized * distToHook;
 
             //Axis perpendicular to the direction of player to grappling hook
             Vector2 axis = Vector2.Perpendicular(grappleHook.transform.position - transform.position);
@@ -125,6 +127,8 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+
+            distanceJoint.distance = distToHook;
         }
 
         if (inputHandler.Grapple.down && (isGrappling == false))
@@ -277,10 +281,14 @@ public class PlayerController : MonoBehaviour
         if (isGrappling) //start grapple
         {
             distToHook = (transform.position - grappleHook.transform.position).magnitude;
+            distanceJoint.distance = distToHook;
+
+            distanceJoint.connectedAnchor = grappleHook.transform.position;
+            distanceJoint.enabled = true;
         }
         else //end grapple
         {
-
+            distanceJoint.enabled = false;
         }
     }
 

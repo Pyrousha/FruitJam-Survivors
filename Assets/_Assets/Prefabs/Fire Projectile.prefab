@@ -143,6 +143,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
+  hitbox: {fileID: 6636451329258349383}
 --- !u!50 &6636451329258349377
 Rigidbody2D:
   serializedVersion: 4

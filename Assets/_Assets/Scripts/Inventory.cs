@@ -8,14 +8,33 @@ using System;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private int numMaxWeapons;
-    [SerializeField] private List<Image> weaponSlots;
+    [SerializeField] private List<InventorySlot> weaponSlots;
     [SerializeField] private TextMeshProUGUI juiceText;
+    [SerializeField] private Animator inventoryUI;
+    public Animator InventoryUI => inventoryUI;
 
+    [Space(5)]
     [SerializeField] private float counterChangePerSec;
     [SerializeField] private float countDownSpeedMult;
 
+    [Space(5)]
+    [SerializeField] private float xpAddedPerSec;
+
     private float displayedJuice;
-    [SerializeField] private int juice;
+    private float juice;
+
+    private Camera mainCamera;
+
+    private bool filling;
+    private Weapon selectedWeapon;
+
+    private InputHandler inputHandler;
+
+    void Awake()
+    {
+        mainCamera = Camera.main;
+        inputHandler = GetComponent<InputHandler>();
+    }
 
     private List<Weapon> weapons = new List<Weapon>();
 
@@ -25,8 +44,8 @@ public class Inventory : MonoBehaviour
         {
             weapons.Add(_weapon);
 
-            weaponSlots[weapons.Count - 1].sprite = _weapon.GetComponent<SpriteRenderer>().sprite;
-            weaponSlots[weapons.Count - 1].color = Color.white;
+            weaponSlots[weapons.Count - 1].SetWeapon(_weapon);
+            weaponSlots[weapons.Count - 1].SetInventory(this);
 
             return true;
         }
@@ -41,6 +60,27 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
+        if (inputHandler.Grapple.up)
+            StopFill();
+
+        if (filling)
+        {
+            float amountToFill = Mathf.Min(xpAddedPerSec * Time.deltaTime, juice, selectedWeapon.XpToNextLevel);
+            juice -= amountToFill;
+
+            if (amountToFill == 0)
+                StopFill();
+            else
+                selectedWeapon.AddXp(amountToFill);
+        }
+
+        void StopFill()
+        {
+            filling = false;
+            selectedWeapon = null;
+        }
+
+        //Roll fruits counter
         if (displayedJuice != juice)
         {
             float amountToChange = juice - displayedJuice;
@@ -52,5 +92,11 @@ public class Inventory : MonoBehaviour
             displayedJuice += amountToChange;
             juiceText.text = $"{(int)displayedJuice}";
         }
+    }
+
+    public void StartFill(Weapon _weapon)
+    {
+        selectedWeapon = _weapon;
+        filling = true;
     }
 }
