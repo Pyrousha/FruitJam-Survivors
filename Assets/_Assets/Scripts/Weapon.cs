@@ -30,6 +30,7 @@ public class Weapon : MonoBehaviour
     private float xp;
     private float maxXp;
     public float XpToNextLevel => maxXp - xp;
+    public bool IsMaxLevel => (level == statsAsWeaponLevelsUp.Count);
 
     private InventorySlot equippedSlot;
 
@@ -127,13 +128,13 @@ public class Weapon : MonoBehaviour
 
     private void OnLevelUp()
     {
-        if (level == statsAsWeaponLevelsUp.Count)
+        if (IsMaxLevel)
             return;
 
         xp -= maxXp;
         level++;
 
-        if (level == statsAsWeaponLevelsUp.Count)
+        if (IsMaxLevel)
         {
             //max level reached
             xp = maxXp;

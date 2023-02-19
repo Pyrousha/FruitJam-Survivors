@@ -30,6 +30,17 @@ public class Inventory : MonoBehaviour
 
     private InputHandler inputHandler;
 
+    public bool AllWeaponsMaxLevel()
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            if (weapon.IsMaxLevel == false)
+                return false;
+        }
+
+        return true;
+    }
+
     void Awake()
     {
         mainCamera = Camera.main;
@@ -65,7 +76,7 @@ public class Inventory : MonoBehaviour
 
         if (filling)
         {
-            float amountToFill = Mathf.Min(xpAddedPerSec * Time.deltaTime, juice, selectedWeapon.XpToNextLevel);
+            float amountToFill = Mathf.Min(xpAddedPerSec * Time.unscaledDeltaTime, juice, selectedWeapon.XpToNextLevel);
             juice -= amountToFill;
 
             if (amountToFill == 0)
@@ -74,20 +85,14 @@ public class Inventory : MonoBehaviour
                 selectedWeapon.AddXp(amountToFill);
         }
 
-        void StopFill()
-        {
-            filling = false;
-            selectedWeapon = null;
-        }
-
         //Roll fruits counter
         if (displayedJuice != juice)
         {
             float amountToChange = juice - displayedJuice;
             if (amountToChange > 0)
-                amountToChange = Mathf.Min(amountToChange, counterChangePerSec * Time.deltaTime * Mathf.Max(1, Mathf.Sqrt(juice - displayedJuice)));
+                amountToChange = Mathf.Min(amountToChange, counterChangePerSec * Time.unscaledDeltaTime * Mathf.Max(1, Mathf.Sqrt(juice - displayedJuice)));
             else
-                amountToChange = Mathf.Max(amountToChange, -counterChangePerSec * countDownSpeedMult * Time.deltaTime * Mathf.Max(1, Mathf.Sqrt(displayedJuice - juice)));
+                amountToChange = Mathf.Max(amountToChange, -counterChangePerSec * countDownSpeedMult * Time.unscaledDeltaTime * Mathf.Max(1, Mathf.Sqrt(displayedJuice - juice)));
 
             displayedJuice += amountToChange;
             juiceText.text = $"{(int)displayedJuice}";
@@ -98,5 +103,20 @@ public class Inventory : MonoBehaviour
     {
         selectedWeapon = _weapon;
         filling = true;
+    }
+
+    void StopFill()
+    {
+        filling = false;
+        selectedWeapon = null;
+
+        if (juice == 0 || AllWeaponsMaxLevel())
+            juicer.CloseMenu();
+    }
+
+    private Juicer juicer;
+    internal void SetJuicer(Juicer _juicer)
+    {
+        juicer = _juicer;
     }
 }

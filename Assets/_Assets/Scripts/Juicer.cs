@@ -6,6 +6,7 @@ public class Juicer : MonoBehaviour
 {
     InputHandler player;
     bool playerOverlapping = false;
+    bool open = false;
 
     void OnTriggerEnter2D(Collider2D _col)
     {
@@ -27,22 +28,48 @@ public class Juicer : MonoBehaviour
         {
             if (player.Interact.down)
             {
-                GetComponent<Collider2D>().enabled = false;
-
-                player.GetComponent<Inventory>().InventoryUI.SetTrigger("OpenMenu");
-
-                Time.timeScale = 0;
-            }
-            else
-            {
-                if (player.Menu.down)
+                if (open)
                 {
-                    player.GetComponent<Inventory>().InventoryUI.SetTrigger("CloseMenu");
-                    Destroy(gameObject);
+                    CloseMenu();
+                }
+                else
+                {
+                    if (player.GetComponent<Inventory>().AllWeaponsMaxLevel())
+                        return; //Don't open juicer if player is maxed
 
-                    Time.timeScale = 1;
+                    OpenMenu();
                 }
             }
         }
+    }
+
+    public void CloseMenu()
+    {
+        if (open == false)
+            return;
+
+        //close menu
+        player.GetComponent<Inventory>().InventoryUI.SetTrigger("CloseMenu");
+        Destroy(gameObject);
+
+        Time.timeScale = 1;
+
+        open = false;
+    }
+
+    private void OpenMenu()
+    {
+        if (open)
+            return;
+
+        //open menu
+        GetComponent<Collider2D>().enabled = false;
+
+        player.GetComponent<Inventory>().InventoryUI.SetTrigger("OpenMenu");
+        player.GetComponent<Inventory>().SetJuicer(this);
+
+        Time.timeScale = 0;
+
+        open = true;
     }
 }

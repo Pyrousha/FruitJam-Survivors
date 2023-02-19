@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             distanceJoint.distance = distToHook;
         }
 
-        if (inputHandler.Grapple.down && (isGrappling == false))
+        if (inputHandler.Grapple.down && (isGrappling == false) && Time.timeScale > 0)
         {
             //Start Grapple
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

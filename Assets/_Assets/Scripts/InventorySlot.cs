@@ -32,7 +32,8 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        inventory.StartFill(weapon);
+        if (weapon != null)
+            inventory.StartFill(weapon);
     }
 
     private Inventory inventory;
