@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     private const float jumpBuffer = 0.1f;
     private const float coyoteTime = 0.1f;
     bool doubleJump = false;
+    private GameObject trail;
 
     void Awake()
     {
@@ -142,12 +143,17 @@ public class PlayerController : MonoBehaviour
 
             Vector2 grappleDir = mousePos - transform.position;
             grappleHook.Fire(grappleDir);
+            trail = VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Dust_Trail, transform);
         }
 
         if (inputHandler.Grapple.up && isGrappling)
         {
             //End Grapple
             grappleHook.Retract();
+            VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Dust_Burst, transform);
+            trail.AddComponent<DestroyAfterDelay>();
+            trail.GetComponent<ParticleSystem>().Stop();
+            trail = null;
         }
 
         //Ground checking
@@ -156,6 +162,10 @@ public class PlayerController : MonoBehaviour
 
         if (grounded || isGrappling) {
             doubleJump = true;
+        }
+
+        if (!lastGrounded && grounded) {
+            VFXManager.Instance.CreateVFX(ParticleType.Dust_Splash, transform.position, spriteRenderer.flipX);
         }
 
         if (isGrappling == false)
@@ -305,7 +315,8 @@ public class PlayerController : MonoBehaviour
                 ChangeAnimationState(PlayerAnimStateEnum.Player_Fall);
         }
 
-        
+        if (grounded && (inputHandler.Left.down || inputHandler.Right.down))
+            VFXManager.Instance.CreateVFX(ParticleType.Dust_Small, transform.position, spriteRenderer.flipX);
     }
 
     public void SetIsGrappling(bool _isGrappling)
@@ -335,6 +346,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
 
         ChangeAnimationState(PlayerAnimStateEnum.Player_Jump, true);
+        VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Dust_Burst, transform);
 
         if (!grounded && !(Time.time - lastTimeGrounded <= coyoteTime))
             doubleJump = false;

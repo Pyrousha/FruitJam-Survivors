@@ -4,13 +4,41 @@ using UnityEngine;
 
 public class VFXManager : Singleton<VFXManager>
 {
+    [Header("Particle systems")]
     [SerializeField] GameObject[] particleSystems;
+
+    [Header("Animation clip particles")]
+    [SerializeField] private GameObject template;
+    [SerializeField] private AnimationClip[] anims;
     
     public void SpawnParticleSystem(ParticleSystemType type, Vector3 position, Quaternion rotation) {
         Instantiate(particleSystems[(int)type], position, rotation);
     }
+
+    public GameObject SpawnParticleSystem(ParticleSystemType type, Transform parent) {
+        return Instantiate(particleSystems[(int)type], parent);
+    }
+
+    public void CreateVFX(ParticleType type, Vector3 pos, bool flip) {
+        GameObject particle = Instantiate(template, pos, Quaternion.identity);
+
+        Animator animator = particle.GetComponent<Animator>();
+        AnimatorOverrideController animController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animController["particle"] = anims[(int)type];
+        animator.runtimeAnimatorController = animController;
+
+        particle.GetComponent<DestroyAfterDelay>().SetLifetime(anims[(int)type].length);
+
+        particle.GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+
 }
 
 public enum ParticleSystemType {
-    Hit
+    Hit, Dust_Burst, Dust_Trail
+}
+
+public enum ParticleType {
+    Dust_Small, Dust_Large, Dust_Splash
 }

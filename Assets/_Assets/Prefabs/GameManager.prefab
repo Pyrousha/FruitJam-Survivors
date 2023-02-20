@@ -46,3 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystems:
   - {fileID: 1565736523276175237, guid: de419ec6d17845242a32c5943ee04efe, type: 3}
+  - {fileID: 2529229389930389568, guid: 50d4ec40ba7716d498a09051d2a70717, type: 3}
+  - {fileID: 1745261482687768155, guid: f61da3c641d03244ea8f7eb27d02a29b, type: 3}
+  template: {fileID: 2495689101530985162, guid: 544f3a137ac0fdf4dbb06adcec6919be, type: 3}
+  anims:
+  - {fileID: 7400000, guid: 782c10b39dec75e42b33d0bf25c3a9fc, type: 2}
+  - {fileID: 7400000, guid: bfc26076bf6d0f04e8dafe33b6b71f5a, type: 2}
+  - {fileID: 7400000, guid: d46b9e9cd302a1a4b83d4e89db80ab71, type: 2}

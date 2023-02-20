@@ -17,6 +17,6 @@ public class DestroyAfterDelay : MonoBehaviour
     }
 
     public void SetLifetime(float lifetime) {
-        this.lifetime = lifetime += Time.time;
+        this.lifetime = lifetime;
     }
 }
