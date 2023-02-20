@@ -6,6 +6,7 @@ public class JuicePickup : MonoBehaviour
 {
     [SerializeField] private int value;
     private float startingVelocity = 5;
+    private int age;
 
     void Start()
     {
@@ -17,5 +18,15 @@ public class JuicePickup : MonoBehaviour
     {
         _col.GetComponent<Inventory>().AddJuice(value);
         Destroy(transform.parent.gameObject);
+    }
+
+    void FixedUpdate() {
+        if (Vector3.Distance(GameManager.Instance.player.transform.position, transform.position) > 50) {
+            age++;
+        } else {
+            age = 0;
+        }
+        if (age > 1200 || transform.position.y < BoundsManager.Instance.Bottom)
+            Destroy(transform.parent);
     }
 }
