@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 75a59d98e7d3622489ec074d12f02d9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af7d7e1854b111d41910de2b7875892b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a6013d7c9d7ef2409de47f7011e4f2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,25 +105,28 @@ MonoBehaviour:
     damage: 10
     cooldownBetweenShots: 0.5
     projectilesFired: 1
+    spreadDegrees: 0
+    velocityRandom: 0
     projectileMoveSpeed: 20
     projectileLifespan: 1
-    pierceTerrain: 0
   - targetType: 0
     xpNeededToLevelUp: 3000
     damage: 10
     cooldownBetweenShots: 0.2
     projectilesFired: 1
+    spreadDegrees: 0
+    velocityRandom: 0
     projectileMoveSpeed: 30
     projectileLifespan: 1
-    pierceTerrain: 0
   - targetType: 0
     xpNeededToLevelUp: 0
     damage: 10
     cooldownBetweenShots: 0.1
     projectilesFired: 1
+    spreadDegrees: 0
+    velocityRandom: 0
     projectileMoveSpeed: 40
     projectileLifespan: 1
-    pierceTerrain: 0
 --- !u!61 &1574846480521082461
 BoxCollider2D:
   m_ObjectHideFlags: 0
