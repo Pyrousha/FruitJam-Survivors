@@ -8,7 +8,8 @@ public class Projectile : MonoBehaviour
     {
         Wand,
         Boomerang,
-        Shotgun
+        Shotgun,
+        Walter
     }
 
     private Rigidbody2D rb;
@@ -71,7 +72,8 @@ public class Projectile : MonoBehaviour
         rot.z = Mathf.Atan2(_dir.y, _dir.x);
         transform.eulerAngles = rot * Mathf.Rad2Deg;
 
-        rb.velocity = _dir * _moveSpeed;
+        if (rb != null)
+            rb.velocity = _dir * _moveSpeed;
 
         destroyTime = Time.time + _duration;
 
