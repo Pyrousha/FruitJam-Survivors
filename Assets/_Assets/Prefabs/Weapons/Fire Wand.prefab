@@ -107,7 +107,7 @@ MonoBehaviour:
     projectilesFired: 1
     spreadDegrees: 0
     velocityRandom: 0
-    projectileMoveSpeed: 20
+    projectileMoveSpeed: 40
     projectileLifespan: 1
   - targetType: 0
     xpNeededToLevelUp: 3000
@@ -116,7 +116,7 @@ MonoBehaviour:
     projectilesFired: 1
     spreadDegrees: 0
     velocityRandom: 0
-    projectileMoveSpeed: 30
+    projectileMoveSpeed: 45
     projectileLifespan: 1
   - targetType: 0
     xpNeededToLevelUp: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
     projectilesFired: 1
     spreadDegrees: 0
     velocityRandom: 0
-    projectileMoveSpeed: 40
+    projectileMoveSpeed: 50
     projectileLifespan: 1
 --- !u!61 &1574846480521082461
 BoxCollider2D:

@@ -6,7 +6,7 @@ public class Hitbox : MonoBehaviour
 {
     [SerializeField] private bool destroyOnHit;
     public bool DestroyOnHit => destroyOnHit;
-    private float damage;
+    [SerializeField] private float damage;
     public float Damage => damage;
     public void SetDamage(float _dmg)
     {
