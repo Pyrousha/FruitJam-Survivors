@@ -50,11 +50,13 @@ public class Juicer : MonoBehaviour
 
         //close menu
         player.GetComponent<Inventory>().InventoryUI.SetTrigger("CloseMenu");
-        Destroy(gameObject);
+        player.GetComponent<Inventory>().DisableBuyMenu();
 
         Time.timeScale = 1;
 
         open = false;
+
+        Destroy(gameObject);
     }
 
     private void OpenMenu()

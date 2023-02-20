@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46af10fdcf0c34c47826f3e7ad0bc2a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlotImage: {fileID: 8003956212325897491}

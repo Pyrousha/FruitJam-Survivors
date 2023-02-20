@@ -103,30 +103,33 @@ MonoBehaviour:
   - targetType: 0
     xpNeededToLevelUp: 2000
     damage: 4
-    cooldownBetweenShots: 0.5
+    cooldownBetweenShots: 1
     projectilesFired: 9
     spreadDegrees: 45
     velocityRandom: 5
+    scaleMod: 0
     projectileMoveSpeed: 20
     projectileLifespan: 0.5
   - targetType: 0
-    xpNeededToLevelUp: 3000
-    damage: 10
-    cooldownBetweenShots: 0.2
-    projectilesFired: 1
-    spreadDegrees: 0
-    velocityRandom: 0
-    projectileMoveSpeed: 30
-    projectileLifespan: 1
+    xpNeededToLevelUp: 2000
+    damage: 4
+    cooldownBetweenShots: 1
+    projectilesFired: 12
+    spreadDegrees: 50
+    velocityRandom: 5
+    scaleMod: 0
+    projectileMoveSpeed: 20
+    projectileLifespan: 0.5
   - targetType: 0
-    xpNeededToLevelUp: 0
-    damage: 10
-    cooldownBetweenShots: 0.1
-    projectilesFired: 1
-    spreadDegrees: 0
-    velocityRandom: 0
-    projectileMoveSpeed: 40
-    projectileLifespan: 1
+    xpNeededToLevelUp: 2000
+    damage: 4
+    cooldownBetweenShots: 1
+    projectilesFired: 21
+    spreadDegrees: 60
+    velocityRandom: 5
+    scaleMod: 0
+    projectileMoveSpeed: 20
+    projectileLifespan: 0.5
 --- !u!61 &7000936350908995965
 BoxCollider2D:
   m_ObjectHideFlags: 0
