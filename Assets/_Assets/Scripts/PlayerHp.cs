@@ -59,7 +59,7 @@ public class PlayerHp : HpInterface
 
     void FixedUpdate() {
         if (currHp < maxHp) {
-            currHp += StyleManager.Instance.GetGrade() * 0.05f;
+            currHp += StyleManager.Instance.GetGrade() * 0.02f;
 
             if (currHp > maxHp)
                 currHp = maxHp;

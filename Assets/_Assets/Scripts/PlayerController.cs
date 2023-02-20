@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (rb.velocity.magnitude > 12) {
-            StyleManager.Instance.ChangeStyle(rb.velocity.magnitude / 12);
+            StyleManager.Instance.ChangeStyle(rb.velocity.magnitude / 20);
         }
 
         if (isGrappling)
