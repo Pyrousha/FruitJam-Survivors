@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour
 
         public float cooldownBetweenShots;
         public int projectilesFired;
+        public float spreadDegrees;
+        public float velocityRandom;
 
         public float projectileMoveSpeed;
         public float projectileLifespan;
@@ -29,6 +31,7 @@ public class Weapon : MonoBehaviour
     private int level = 0;
     private float xp;
     private float maxXp;
+    public float MaxXp => maxXp;
     public float XpToNextLevel => maxXp - xp;
     public bool IsMaxLevel => (level == statsAsWeaponLevelsUp.Count);
 
@@ -94,9 +97,22 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        Projectile newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Projectile>();
-        newProjectile.SetParameters(dir.normalized, currStats.projectileMoveSpeed, currStats.projectileLifespan, currStats.damage);
+        for (int i = 0; i < currStats.projectilesFired; i++)
+        {
+            Projectile newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Projectile>();
 
+            float speed = Random.Range(currStats.projectileMoveSpeed - currStats.velocityRandom / 2, currStats.projectileMoveSpeed + currStats.velocityRandom / 2);
+
+            if (currStats.spreadDegrees > 0)
+            {
+                float randomOffsetAngle = Random.Range(-currStats.spreadDegrees / 2, currStats.spreadDegrees / 2);
+                Vector3 newDir = Quaternion.Euler(0, 0, randomOffsetAngle) * dir;
+                newProjectile.SetParameters(newDir.normalized, speed, currStats.projectileLifespan, currStats.damage, player.transform);
+
+            }
+            else
+                newProjectile.SetParameters(dir.normalized, speed, currStats.projectileLifespan, currStats.damage, player.transform);
+        }
         nextFireTime = Time.time + currStats.cooldownBetweenShots;
     }
 

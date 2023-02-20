@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private float countDownSpeedMult;
 
     [Space(5)]
-    [SerializeField] private float xpAddedPerSec;
+    [SerializeField] private float xpPercentAddedPerSecond;
 
     private float displayedJuice;
     private float juice;
@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour
     {
         if (filling)
         {
-            float amountToFill = Mathf.Min(xpAddedPerSec * Time.unscaledDeltaTime, juice, selectedWeapon.XpToNextLevel);
+            float amountToFill = Mathf.Min(xpPercentAddedPerSecond * selectedWeapon.MaxXp * Time.unscaledDeltaTime, juice, selectedWeapon.XpToNextLevel);
             juice -= amountToFill;
 
             if (amountToFill == 0)

@@ -16,7 +16,7 @@ TagManager:
   - WeaponPickup
   - Player-Hitbox
   - Player-Hurtbox
-  - 
+  - PlayerHitbox-NoTerrain
   - Enemy-Hitbox
   - Enemy-Hurtbox
   - 

@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 dirFacing;
     public Vector2 DirFacing => dirFacing;
 
-    private Vector2 dir;
-    [SerializeField] private float startingGrapplingSpeed;
-    [SerializeField] private float speedGainedPerSecGrappling;
     [SerializeField] private float grappleGravUp;
     [SerializeField] private float grappleGravDown;
     [SerializeField] private float grappleXInfluence;
@@ -284,39 +281,47 @@ public class PlayerController : MonoBehaviour
                 ChangeAnimationState(PlayerAnimStateEnum.Player_Right);
             else
                 ChangeAnimationState(PlayerAnimStateEnum.Player_Idle);
-        }
-        else
-        {
-            if (isGrappling) {
-                Vector2 delta = grappleHook.transform.position - transform.position;
-                float angle = Mathf.Rad2Deg * Mathf.Atan2(delta.y, delta.x) - 90;
-                spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, angle);
-                if (rb.velocity.y > 0)
-                    ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Up);
-                else {
-                    ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Down);
-                }
 
-                if (angle + 90 <= 0) {
-                    if (rb.velocity.x < 0)
+            return;
+        }
+
+        //Not grounded
+        if (isGrappling)
+        {
+            Vector2 delta = grappleHook.transform.position - transform.position;
+            float angle = Mathf.Rad2Deg * Mathf.Atan2(delta.y, delta.x) - 90;
+            spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, angle);
+            if (rb.velocity.y > 1)
+                ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Up);
+            else
+            {
+                ChangeAnimationState(PlayerAnimStateEnum.Player_Grapple_Down);
+            }
+
+            if (angle + 90 <= 0)
+            {
+                if (rb.velocity.x < 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else
+                {
+                    if (rb.velocity.x > 0)
                     {
-                        spriteRenderer.flipX = false;
-                    }
-                    else
-                    {
-                        if (rb.velocity.x > 0)
-                        {
-                            spriteRenderer.flipX = true;
-                        }
+                        spriteRenderer.flipX = true;
                     }
                 }
-                
-            } else if (currentAnimation != PlayerAnimStateEnum.Player_Jump)
-                ChangeAnimationState(PlayerAnimStateEnum.Player_Fall);
+            }
+
+            return;
         }
 
         if (grounded && (inputHandler.Left.down || inputHandler.Right.down))
             VFXManager.Instance.CreateVFX(ParticleType.Dust_Small, transform.position, spriteRenderer.flipX);
+
+        //Not grappling, play jumping or falling anim
+        if (currentAnimation != PlayerAnimStateEnum.Player_Jump)
+            ChangeAnimationState(PlayerAnimStateEnum.Player_Fall);
     }
 
     public void SetIsGrappling(bool _isGrappling)
