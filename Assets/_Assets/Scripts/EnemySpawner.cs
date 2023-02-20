@@ -43,6 +43,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
         enemies.Add(newEnemy);
 
         nextSpawnTime = Time.time + spawnCooldown;
+
+        spawnCooldown *= 0.999f;
     }
 
     public Vector3 FindDirectionToNearestEnemy(Vector3 _position)
