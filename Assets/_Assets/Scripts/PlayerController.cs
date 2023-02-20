@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     private const float epsilon = 0.05f;
     private const float jumpBuffer = 0.1f;
     private const float coyoteTime = 0.1f;
+    bool doubleJump = false;
 
     void Awake()
     {
@@ -153,6 +154,10 @@ public class PlayerController : MonoBehaviour
         bool lastGrounded = grounded;
         grounded = (rb.velocity.y < 1.0f) && Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.99f, 0f, Vector2.down, 0.1f, terrainLayer);
 
+        if (grounded || isGrappling) {
+            doubleJump = true;
+        }
+
         if (isGrappling == false)
         {
             //Accelerate + Friction
@@ -215,9 +220,10 @@ public class PlayerController : MonoBehaviour
         //Jump - grounded
         if (inputHandler.Jump.down)
         {
-            if (grounded || (Time.time - lastTimeGrounded <= coyoteTime))
+            if (grounded || (Time.time - lastTimeGrounded <= coyoteTime) || doubleJump) {
                 TryJump();
-            else
+
+            } else
                 lastTimePressedJump = Time.time;
         }
         //Jump - buffered
@@ -328,15 +334,18 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
 
-        ChangeAnimationState(PlayerAnimStateEnum.Player_Jump);
+        ChangeAnimationState(PlayerAnimStateEnum.Player_Jump, true);
+
+        if (!grounded && !(Time.time - lastTimeGrounded <= coyoteTime))
+            doubleJump = false;
 
         grounded = false;
     }
 
-    private void ChangeAnimationState(PlayerAnimStateEnum _newState)
+    private void ChangeAnimationState(PlayerAnimStateEnum _newState, bool force = false)
     {
         //Stop same animation from interrupting itself
-        if (currentAnimation == _newState)
+        if (currentAnimation == _newState && !force)
             return;
 
         //Play new animation
