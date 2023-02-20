@@ -8,6 +8,7 @@ public class HpInterface : MonoBehaviour
     [SerializeField] private Slider hpBar;
     [SerializeField] protected float maxHp;
     protected float currHp;
+    public GameObject gameOverObj;
 
     void Awake()
     {
@@ -49,16 +50,20 @@ public class PlayerHp : HpInterface
 {
     public override void Die()
     {
-        Debug.Log("GAME OVER");
+        gameOverObj.SetActive(true);
+        Time.timeScale = 0;
     }
 
-    public override void TakeDamage(float _dmg) {
+    public override void TakeDamage(float _dmg)
+    {
         base.TakeDamage(_dmg);
         StyleManager.Instance.ChangeStyle(-100);
     }
 
-    void FixedUpdate() {
-        if (currHp < maxHp) {
+    void FixedUpdate()
+    {
+        if (currHp < maxHp)
+        {
             currHp += StyleManager.Instance.GetGrade() * 0.02f;
 
             if (currHp > maxHp)
