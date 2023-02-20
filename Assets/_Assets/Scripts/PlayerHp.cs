@@ -16,8 +16,11 @@ public class HpInterface : MonoBehaviour
         UpdateHPBar();
     }
 
-    public virtual void TakeDamage(float _dmg)
+    public virtual bool TakeDamage(float _dmg)
     {
+        if (currHp <= 0)
+            return false;
+
         currHp = Mathf.Max(0, currHp - _dmg);
         UpdateHPBar();
 
@@ -28,6 +31,8 @@ public class HpInterface : MonoBehaviour
         {
             Die();
         }
+
+        return true;
     }
 
     public void Heal(float _healing)
@@ -54,10 +59,11 @@ public class PlayerHp : HpInterface
         Time.timeScale = 0;
     }
 
-    public override void TakeDamage(float _dmg)
+    public override bool TakeDamage(float _dmg)
     {
-        base.TakeDamage(_dmg);
         StyleManager.Instance.ChangeStyle(-100);
+
+        return base.TakeDamage(_dmg);
     }
 
     void FixedUpdate()

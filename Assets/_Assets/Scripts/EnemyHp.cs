@@ -22,6 +22,8 @@ public class EnemyHp : HpInterface
 
         EnemySpawner.Instance.OnEnemyKilled(this);
 
+        GetComponent<Collider2D>().enabled = false;
+
         Destroy(gameObject);
     }
 }

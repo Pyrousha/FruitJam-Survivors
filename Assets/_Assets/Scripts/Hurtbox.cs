@@ -10,9 +10,11 @@ public class Hurtbox : MonoBehaviour
     {
         Hitbox otherHitbox = _other.GetComponent<Hitbox>();
 
-        hpInterface.TakeDamage(otherHitbox.Damage);
-        VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Hit, transform.position, otherHitbox.transform.rotation);
-        if (otherHitbox.DestroyOnHit)
-            Destroy(otherHitbox.gameObject);
+        if (hpInterface.TakeDamage(otherHitbox.Damage))
+        {
+            VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Hit, transform.position, otherHitbox.transform.rotation);
+            if (otherHitbox.DestroyOnHit)
+                Destroy(otherHitbox.gameObject);
+        }
     }
 }

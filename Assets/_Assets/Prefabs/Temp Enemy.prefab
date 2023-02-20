@@ -249,7 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBar: {fileID: 0}
-  maxHp: 5
+  maxHp: 10
+  gameOverObj: {fileID: 0}
   numXpSpawned: 3
   xpPickup: {fileID: 477882601653735968, guid: f8f81b9b51b245d478b41fe5e85596bf, type: 3}
 --- !u!61 &7846309100647595313
@@ -314,7 +315,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!95 &1543211067421633345
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -331,4 +332,4 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0

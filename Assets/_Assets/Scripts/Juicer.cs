@@ -7,6 +7,7 @@ public class Juicer : MonoBehaviour
     InputHandler player;
     bool playerOverlapping = false;
     bool open = false;
+    [SerializeField] private bool startingJuicer;
 
     void OnTriggerEnter2D(Collider2D _col)
     {
@@ -26,7 +27,7 @@ public class Juicer : MonoBehaviour
     {
         if (player != null && playerOverlapping)
         {
-            if (player.Interact.down)
+            if (player.Interact.down || startingJuicer)
             {
                 if (open)
                 {
@@ -52,13 +53,15 @@ public class Juicer : MonoBehaviour
         player.GetComponent<Inventory>().InventoryUI.SetTrigger("CloseMenu");
         player.GetComponent<Inventory>().DisableBuyMenu();
 
-        Time.timeScale = 1;
-
         open = false;
 
         Destroy(gameObject);
     }
 
+    void OnDestroy()
+    {
+        Time.timeScale = 1;
+    }
     private void OpenMenu()
     {
         if (open)
