@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7337612974498333880}
   - component: {fileID: 3496010713058826103}
   - component: {fileID: 1626264779769123894}
+  - component: {fileID: 6575938897834280313}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -72,3 +73,33 @@ MonoBehaviour:
   bottom: -140
   left: -300
   right: 250
+--- !u!114 &6575938897834280313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844393625371270205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9286bd42a3100724d80fa0b25f2af70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 0}
+  grade: {fileID: 0}
+  text: {fileID: 0}
+  grades:
+  - Sour
+  - Average
+  - Bananas
+  - Coconutty!
+  - Durianged!!
+  - FRUITY!!!
+  colors:
+  - {r: 0.12941177, g: 0.12941177, b: 0, a: 1}
+  - {r: 0.6698113, g: 0.015165519, b: 0.015165519, a: 1}
+  - {r: 0.754717, g: 0.6468969, b: 0.1666073, a: 1}
+  - {r: 0.51666665, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0.7999997, b: 1, a: 1}
+  - {r: 0.34999996, g: 0, b: 0.675, a: 1}
+  maxStyle: 1000

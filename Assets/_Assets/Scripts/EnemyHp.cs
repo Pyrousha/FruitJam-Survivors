@@ -18,6 +18,7 @@ public class EnemyHp : HpInterface
         {
             Instantiate(xpPickup, transform.position, Quaternion.identity);
         }
+        StyleManager.Instance.ChangeStyle(40);
 
         EnemySpawner.Instance.OnEnemyKilled(this);
 

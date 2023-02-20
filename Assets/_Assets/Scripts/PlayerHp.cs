@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class HpInterface : MonoBehaviour
 {
     [SerializeField] private Slider hpBar;
-    [SerializeField] private float maxHp;
-    private float currHp;
+    [SerializeField] protected float maxHp;
+    protected float currHp;
 
     void Awake()
     {
@@ -15,7 +15,7 @@ public class HpInterface : MonoBehaviour
         UpdateHPBar();
     }
 
-    public void TakeDamage(float _dmg)
+    public virtual void TakeDamage(float _dmg)
     {
         currHp = Mathf.Max(0, currHp - _dmg);
         UpdateHPBar();
@@ -35,7 +35,7 @@ public class HpInterface : MonoBehaviour
         UpdateHPBar();
     }
 
-    private void UpdateHPBar()
+    protected void UpdateHPBar()
     {
         if (hpBar == null)
             return;
@@ -50,5 +50,20 @@ public class PlayerHp : HpInterface
     public override void Die()
     {
         Debug.Log("GAME OVER");
+    }
+
+    public override void TakeDamage(float _dmg) {
+        base.TakeDamage(_dmg);
+        StyleManager.Instance.ChangeStyle(-100);
+    }
+
+    void FixedUpdate() {
+        if (currHp < maxHp) {
+            currHp += StyleManager.Instance.GetGrade() * 0.05f;
+
+            if (currHp > maxHp)
+                currHp = maxHp;
+            this.UpdateHPBar();
+        }
     }
 }

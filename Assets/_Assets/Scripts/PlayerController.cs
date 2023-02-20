@@ -84,6 +84,10 @@ public class PlayerController : MonoBehaviour
             dirFacing = rb.velocity.normalized;
         }
 
+        if (rb.velocity.magnitude > 12) {
+            StyleManager.Instance.ChangeStyle(rb.velocity.magnitude / 12);
+        }
+
         if (isGrappling)
         {
             //Make player the same distance from the hook while grappling
