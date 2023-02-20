@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rb.velocity.magnitude > 0.1f)
+        if (rb.velocity.magnitude > 0.01f)
         {
             dirFacing = rb.velocity.normalized;
         }
@@ -159,11 +159,13 @@ public class PlayerController : MonoBehaviour
         bool lastGrounded = grounded;
         grounded = (rb.velocity.y < 1.0f) && Physics2D.BoxCast(col.bounds.center, col.bounds.size * 0.99f, 0f, Vector2.down, 0.1f, terrainLayer);
 
-        if (grounded || isGrappling) {
+        if (grounded || isGrappling)
+        {
             doubleJump = true;
         }
 
-        if (!lastGrounded && grounded) {
+        if (!lastGrounded && grounded)
+        {
             VFXManager.Instance.CreateVFX(ParticleType.Dust_Splash, transform.position, spriteRenderer.flipX);
         }
 
@@ -229,10 +231,12 @@ public class PlayerController : MonoBehaviour
         //Jump - grounded
         if (inputHandler.Jump.down)
         {
-            if (grounded || (Time.time - lastTimeGrounded <= coyoteTime) || doubleJump) {
+            if (grounded || (Time.time - lastTimeGrounded <= coyoteTime) || doubleJump)
+            {
                 TryJump();
 
-            } else
+            }
+            else
                 lastTimePressedJump = Time.time;
         }
         //Jump - buffered

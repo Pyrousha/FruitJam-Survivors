@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
         public int projectilesFired;
         public float spreadDegrees;
         public float velocityRandom;
+        public float scaleMod;
 
         public float projectileMoveSpeed;
         public float projectileLifespan;
@@ -42,7 +43,8 @@ public class Weapon : MonoBehaviour
     {
         ClosestEnemy,
         RandomDirection,
-        PlayerVelocity
+        PlayerVelocity,
+        StayOnPlayer
     }
 
     private float nextFireTime = -1;
@@ -80,7 +82,7 @@ public class Weapon : MonoBehaviour
     //Spawns the corresponding projectile for this weapon
     private void Fire()
     {
-        Vector3 dir = new Vector3();
+        Vector3 dir = new Vector3(1, 0, 0);
         switch (currStats.targetType)
         {
             case TargetEnum.ClosestEnemy:
@@ -100,6 +102,10 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < currStats.projectilesFired; i++)
         {
             Projectile newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Projectile>();
+            newProjectile.transform.localScale = Vector3.one * Mathf.Max(currStats.scaleMod, 1);
+
+            if (currStats.targetType == TargetEnum.StayOnPlayer)
+                newProjectile.transform.parent = player.transform;
 
             float speed = Random.Range(currStats.projectileMoveSpeed - currStats.velocityRandom / 2, currStats.projectileMoveSpeed + currStats.velocityRandom / 2);
 
@@ -108,7 +114,6 @@ public class Weapon : MonoBehaviour
                 float randomOffsetAngle = Random.Range(-currStats.spreadDegrees / 2, currStats.spreadDegrees / 2);
                 Vector3 newDir = Quaternion.Euler(0, 0, randomOffsetAngle) * dir;
                 newProjectile.SetParameters(newDir.normalized, speed, currStats.projectileLifespan, currStats.damage, player.transform);
-
             }
             else
                 newProjectile.SetParameters(dir.normalized, speed, currStats.projectileLifespan, currStats.damage, player.transform);
