@@ -20,6 +20,9 @@ public class HpInterface : MonoBehaviour
         currHp = Mathf.Max(0, currHp - _dmg);
         UpdateHPBar();
 
+        if (currHp >= 0)
+            VFXManager.Instance.CreateTextFlyout(_dmg.ToString(), transform.position);
+
         if (currHp <= 0)
         {
             Die();

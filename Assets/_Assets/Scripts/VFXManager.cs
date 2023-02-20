@@ -10,6 +10,8 @@ public class VFXManager : Singleton<VFXManager>
     [Header("Animation clip particles")]
     [SerializeField] private GameObject template;
     [SerializeField] private AnimationClip[] anims;
+    [Header("Misc")] 
+    [SerializeField] private GameObject textFlyout;
     
     public void SpawnParticleSystem(ParticleSystemType type, Vector3 position, Quaternion rotation) {
         Instantiate(particleSystems[(int)type], position, rotation);
@@ -32,6 +34,9 @@ public class VFXManager : Singleton<VFXManager>
         particle.GetComponent<SpriteRenderer>().flipX = flip;
     }
 
+    public void CreateTextFlyout(string text, Vector3 position) {
+        Instantiate(textFlyout, position, Quaternion.identity).GetComponent<TextFlyoutController>().Init(text);
+    }
 
 }
 
