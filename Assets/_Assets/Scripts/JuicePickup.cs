@@ -20,13 +20,17 @@ public class JuicePickup : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    void FixedUpdate() {
-        if (Vector3.Distance(GameManager.Instance.player.transform.position, transform.position) > 50) {
+    void FixedUpdate()
+    {
+        if (Vector3.Distance(GameManager.Instance.player.transform.position, transform.position) > 50)
+        {
             age++;
-        } else {
+        }
+        else
+        {
             age = 0;
         }
         if (age > 1200 || transform.position.y < BoundsManager.Instance.Bottom)
-            Destroy(transform.parent);
+            Destroy(transform.parent.gameObject);
     }
 }
