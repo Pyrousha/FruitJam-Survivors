@@ -140,6 +140,8 @@ public class PlayerController : MonoBehaviour
 
             Vector2 grappleDir = mousePos - transform.position;
             grappleHook.Fire(grappleDir);
+            if (trail != null)
+                Destroy(trail);
             trail = VFXManager.Instance.SpawnParticleSystem(ParticleSystemType.Dust_Trail, transform);
         }
 
