@@ -101,31 +101,44 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6636451329258349376, guid: c7e2eb5906b2db04ba274d2751e10fbe, type: 3}
   statsAsWeaponLevelsUp:
   - targetType: 0
-    xpNeededToLevelUp: 2000
+    xpNeededToLevelUp: 5000
+    damage: 10
+    cooldownBetweenShots: 0.75
+    projectilesFired: 1
+    spreadDegrees: 0
+    velocityRandom: 0
+    scaleMod: 0
+    projectileMoveSpeed: 40
+    projectileLifespan: 1
+  - targetType: 0
+    xpNeededToLevelUp: 10000
+    damage: 10
+    cooldownBetweenShots: 0.6
+    projectilesFired: 1
+    spreadDegrees: 0
+    velocityRandom: 0
+    scaleMod: 0
+    projectileMoveSpeed: 45
+    projectileLifespan: 1
+  - targetType: 0
+    xpNeededToLevelUp: 20000
     damage: 10
     cooldownBetweenShots: 0.5
     projectilesFired: 1
     spreadDegrees: 0
     velocityRandom: 0
-    projectileMoveSpeed: 40
+    scaleMod: 0
+    projectileMoveSpeed: 50
     projectileLifespan: 1
   - targetType: 0
-    xpNeededToLevelUp: 3000
-    damage: 10
-    cooldownBetweenShots: 0.2
-    projectilesFired: 1
-    spreadDegrees: 0
-    velocityRandom: 0
-    projectileMoveSpeed: 45
-    projectileLifespan: 1
-  - targetType: 0
-    xpNeededToLevelUp: 0
+    xpNeededToLevelUp: 500000
     damage: 10
     cooldownBetweenShots: 0.1
     projectilesFired: 1
     spreadDegrees: 0
     velocityRandom: 0
-    projectileMoveSpeed: 50
+    scaleMod: 0
+    projectileMoveSpeed: 70
     projectileLifespan: 1
 --- !u!61 &1574846480521082461
 BoxCollider2D:

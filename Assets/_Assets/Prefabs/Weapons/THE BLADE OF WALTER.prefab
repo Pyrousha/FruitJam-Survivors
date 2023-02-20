@@ -101,7 +101,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6636451329258349376, guid: 47c270381f8157241b22adb92a55c6e7, type: 3}
   statsAsWeaponLevelsUp:
   - targetType: 3
-    xpNeededToLevelUp: 2000
+    xpNeededToLevelUp: 5000
     damage: 400
     cooldownBetweenShots: 2
     projectilesFired: 1
@@ -111,23 +111,33 @@ MonoBehaviour:
     projectileMoveSpeed: 0
     projectileLifespan: 0.5
   - targetType: 3
-    xpNeededToLevelUp: 2000
+    xpNeededToLevelUp: 10000
     damage: 400
     cooldownBetweenShots: 1.5
-    projectilesFired: 12
+    projectilesFired: 1
     spreadDegrees: 50
     velocityRandom: 5
     scaleMod: 1.5
     projectileMoveSpeed: 0
     projectileLifespan: 0.5
   - targetType: 3
-    xpNeededToLevelUp: 2000
+    xpNeededToLevelUp: 20000
     damage: 400
     cooldownBetweenShots: 1
-    projectilesFired: 21
+    projectilesFired: 1
     spreadDegrees: 60
     velocityRandom: 5
     scaleMod: 2
+    projectileMoveSpeed: 0
+    projectileLifespan: 0.5
+  - targetType: 3
+    xpNeededToLevelUp: 50000
+    damage: 400
+    cooldownBetweenShots: 0.75
+    projectilesFired: 1
+    spreadDegrees: 60
+    velocityRandom: 5
+    scaleMod: 3
     projectileMoveSpeed: 0
     projectileLifespan: 0.5
 --- !u!61 &6770428236262987969
