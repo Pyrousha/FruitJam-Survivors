@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HpInterface : MonoBehaviour
@@ -53,8 +54,12 @@ public class HpInterface : MonoBehaviour
 
 public class PlayerHp : HpInterface
 {
+    bool dead = false;
+    [SerializeField] private InputHandler inputHandler;
+
     public override void Die()
     {
+        dead = true;
         gameOverObj.SetActive(true);
         Time.timeScale = 0;
     }
@@ -76,5 +81,11 @@ public class PlayerHp : HpInterface
                 currHp = maxHp;
             this.UpdateHPBar();
         }
+    }
+
+    void Update()
+    {
+        if (dead && inputHandler.Interact.holding)
+            SceneManager.LoadScene(0);
     }
 }

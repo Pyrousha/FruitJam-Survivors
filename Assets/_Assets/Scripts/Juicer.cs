@@ -27,7 +27,7 @@ public class Juicer : MonoBehaviour
     {
         if (player != null && playerOverlapping)
         {
-            if (player.Interact.down || startingJuicer)
+            if (startingJuicer)
             {
                 if (open)
                 {

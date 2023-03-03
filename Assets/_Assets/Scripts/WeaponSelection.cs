@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class WeaponSelection : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private Image weaponSlotImage;
+    [SerializeField] private Sprite emptySprite;
 
     private Weapon weapon;
     public Weapon Weapon => weapon;
@@ -22,8 +23,8 @@ public class WeaponSelection : MonoBehaviour, IPointerDownHandler
 
         if (weapon == null)
         {
-            weaponSlotImage.sprite = null;
-            weaponSlotImage.color = Color.clear;
+            weaponSlotImage.sprite = emptySprite;
+            weaponSlotImage.color = new Color(1, 0, 0, 0);
         }
         else
         {
